@@ -1,0 +1,535 @@
+openapi: "3.0.0"
+info:
+  description: "Bike autostation service"
+  version: "1.0.0"
+  title: "Drive it"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+servers:
+  - url: "localhost:8080/api/v1"
+tags:
+- name: "users"
+  description: "Access to operations about users"
+- name: "bikes"
+  description: "Access to operations about bikes"
+- name: "stations"
+  description: "Access to operations about stations"
+externalDocs:
+  description: "Find out more about our store"
+  url: "http://swagger.io"
+paths:
+  /users:
+    post:
+      tags: 
+      - "users"
+      summary: "Register a new user"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserTO'
+      responses:
+        '202':
+          description: "Created"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseTO"
+        '400':
+          description: "Bad request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseTO"
+        '5XX':
+          description: "Internal Server Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseTO"
+  /users/{userId}:
+    get:
+      tags: 
+      - "users"
+      summary: "Returns the specified user"
+      parameters:
+      - name: userId
+        in: path
+        required: true
+        description: "The user identifier"
+        schema:
+          type: "string"
+          pattern: "[a-zA-Z0-9- _]$"
+          maxLength: 200
+      responses:
+        '200':
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserTO"
+        '400':
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseTO"
+        '404':
+          description: "Not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseTO"
+        '5XX':
+          description: "Internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseTO"
+  /users/{userId}/activate:
+    put:
+      tags: 
+      - "users"
+      summary: "Activate the specified user"
+      parameters:
+      - name: userId
+        in: path
+        required: true
+        description: "The user identifier"
+        schema:
+          type: "string"
+          pattern: "[a-zA-Z0-9- _]$"
+          maxLength: 200
+      responses:
+        '200':
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserTO"
+        '400':
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseTO"
+        '404':
+          description: "Not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseTO"
+        '5XX':
+          description: "Internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseTO"
+  /users/{userId}/deactivate:
+    put:
+      tags: 
+      - "users"
+      summary: "Deactivate the specified user"
+      parameters:
+      - name: userId
+        in: path
+        required: true
+        description: "The user identifier"
+        schema:
+          type: "string"
+          pattern: "[a-zA-Z0-9- _]$"
+          maxLength: 200
+      responses:
+        '200':
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserTO"
+        '400':
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseTO"
+        '404':
+          description: "Not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseTO"
+        '5XX':
+          description: "Internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseTO"
+  /bikes:
+    post:
+      tags: 
+      - "bikes"
+      summary: "Register a new bike"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BikeTO'
+      responses:
+        '202':
+          description: "Created"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseTO"
+        '400':
+          description: "Bad request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseTO"
+  /bikes/{bikeId}:
+    get:
+      tags: 
+      - "bikes"
+      summary: "Returns the specified user"
+      parameters:
+      - name: bikeId
+        in: path
+        required: true
+        description: "The user identifier"
+        schema:
+          type: "string"
+          pattern: "[a-zA-Z0-9- _]$"
+          maxLength: 200
+      responses:
+        '200':
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserTO"
+        '400':
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseTO"
+        '404':
+          description: "Not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseTO"
+        '500':
+          description: "Internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseTO"
+  /stations:
+    post:
+      tags: 
+      - "stations"
+      summary: "Register a new station"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StationTO'
+      responses:
+        '202':
+          description: "Created"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseTO"
+        '400':
+          description: "Bad request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseTO"
+  /stations/{stationId}:
+    get:
+      tags: 
+      - "stations"
+      summary: "Returns the specified user"
+      parameters:
+      - name: stationId
+        in: path
+        required: true
+        description: "The user identifier"
+        schema:
+          type: "string"
+          pattern: "[a-zA-Z0-9- _]$"
+          maxLength: 200
+      responses:
+        '200':
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserTO"
+        '400':
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseTO"
+        '404':
+          description: "Not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseTO"
+        '500':
+          description: "Internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseTO"
+  /stations/{stationId}/bikes:
+    get:
+      tags: 
+      - "stations"
+      summary: "Returns the specified user"
+      parameters:
+      - name: stationId
+        in: path
+        required: true
+        description: "The user identifier"
+        schema:
+          type: "string"
+          pattern: "[a-zA-Z0-9- _]$"
+          maxLength: 200
+      responses:
+        '200':
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserTO"
+        '400':
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseTO"
+        '404':
+          description: "Not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseTO"
+        '500':
+          description: "Internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseTO"
+  /stations/{stationId}/bikes/{bikeId}/for/{userId}:
+    put:
+      tags: 
+      - "users"
+      summary: "Deactivate the specified user"
+      parameters:
+      - name: stationId
+        in: path
+        required: true
+        description: "The user identifier"
+        schema:
+          type: "string"
+          pattern: "[a-zA-Z0-9- _]$"
+          maxLength: 200
+      - name: bikeId
+        in: path
+        required: true
+        description: "The user identifier"
+        schema:
+          type: "string"
+          pattern: "[a-zA-Z0-9- _]$"
+          maxLength: 200
+      - name: userId
+        in: path
+        required: true
+        description: "The user identifier"
+        schema:
+          type: "string"
+          pattern: "[a-zA-Z0-9- _]$"
+          maxLength: 200
+      responses:
+        '200':
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserTO"
+        '400':
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseTO"
+        '404':
+          description: "Not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseTO"
+        '500':
+          description: "Internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseTO"
+  /stations/{stationId}/users/{userId}/returns/{bikeId}:
+    put:
+      tags: 
+      - "users"
+      summary: "Deactivate the specified user"
+      parameters:
+      - name: stationId
+        in: path
+        required: true
+        description: "The user identifier"
+        schema:
+          type: "string"
+          pattern: "[a-zA-Z0-9- _]$"
+          maxLength: 200
+      - name: userId
+        in: path
+        required: true
+        description: "The user identifier"
+        schema:
+          type: "string"
+          pattern: "[a-zA-Z0-9- _]$"
+          maxLength: 200
+      - name: bikeId
+        in: path
+        required: true
+        description: "The user identifier"
+        schema:
+          type: "string"
+          pattern: "[a-zA-Z0-9- _]$"
+          maxLength: 200
+      responses:
+        '200':
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserTO"
+        '400':
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseTO"
+        '404':
+          description: "Not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseTO"
+        '500':
+          description: "Internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseTO"
+components:
+  schemas: 
+    UserTO:
+      type: "object"
+      required: 
+      - "name"
+      - "surname"
+      properties:
+        id:
+          type: integer
+          format: "int64"
+          minimum: 1
+          maximum: 1000000
+        name:
+          type: string
+          pattern: "[a-zA-Z0-9- _]$"
+          maxLength: 100
+        surname:
+          type: string
+          pattern: "[a-zA-Z0-9- _]$"
+          maxLength: 100
+        usingBike:
+          type: boolean
+        totalHours:
+          type: number
+          format: decimal
+          minimum: 0
+          maximum: 100000000000.00000000
+        status:
+          type: boolean
+    BikeTO:
+      type: "object"
+      required: 
+      - "serie"
+      - "color"
+      - "station"
+      properties:
+        serie:
+          type: string
+          pattern: "[a-zA-Z0-9- _]$"
+          maxLength: 200
+        color:
+          type: string
+          pattern: "[a-zA-Z0-9- _]$"
+          maxLength: 200
+        station:
+          type: integer
+          format: "int64"
+          minimum: 1
+          maximum: 1000000
+    StationTO:
+      type: "object"
+      required: 
+      - "name"
+      - "address"
+      - "slots"
+      properties:
+        name:
+          type: string
+          pattern: "[a-zA-Z0-9- _]$"
+          maxLength: 200
+        address:
+          type: string
+          pattern: "[a-zA-Z0-9- _]$"
+          maxLength: 200
+        slots:
+          type: integer
+          format: "int64"
+          minimum: 1
+          maximum: 1000000
+    ResponseTO:
+      type: "object"
+      required:
+      - "statusCode"
+      - "message"
+      properties:
+        statusCode:
+          type: string
+          pattern: "[a-zA-Z0-9- _]$"
+          maxLength: 200
+        message:
+          type: string
+          pattern: "[a-zA-Z0-9- _]$"
+          maxLength: 200
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+security:
+  - bearerAuth: []
