@@ -12,6 +12,7 @@ public class UserBO {
     private String surname;
     private Long dni;
     private boolean usingBike;
+    private Long bikeId;
     private double totalHours;
     private boolean status;
 
@@ -23,11 +24,14 @@ public class UserBO {
         this.status = true;
     }
 
-    public void rentBike(){
+    public void rentBike(Long id){
+        setBikeId(id);
         this.usingBike = true;
     }
 
-    public void returnBike(){
+    public void returnBike(double timeUsed){
+        totalHours += timeUsed;
+        setBikeId(null);
         this.usingBike = false;
     }
 }

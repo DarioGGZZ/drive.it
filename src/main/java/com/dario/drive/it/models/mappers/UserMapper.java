@@ -20,6 +20,7 @@ public class UserMapper {
                 .status(userBO.isStatus())
                 .totalHours(userBO.getTotalHours())
                 .usingBike(userBO.isUsingBike())
+                .bikeId(Objects.isNull(userBO.getBikeId()) ? null : userBO.getBikeId())
                 .build();
     }
 
@@ -32,6 +33,7 @@ public class UserMapper {
                 .status(userDE.isStatus())
                 .totalHours(userDE.getTotalHours())
                 .usingBike(userDE.isUsingBike())
+                .bikeId(Objects.isNull(userDE.getBikeId()) ? null : userDE.getBikeId())
                 .build();
     }
 }

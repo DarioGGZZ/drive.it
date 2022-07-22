@@ -26,7 +26,7 @@ public interface IUserController {
     ResponseEntity<ResponseTO> createUser(@ApiParam(value = "User to create" ,required=true )@Valid @RequestBody UserTO user);
 
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "202", description = "Created"),
+            @ApiResponse(responseCode = "200", description = "OK"),
             @ApiResponse(responseCode = "400", description = "Bad request"),
             @ApiResponse(responseCode = "404", description = "Not found"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
@@ -36,7 +36,7 @@ public interface IUserController {
     ResponseEntity<?> getUserByUserDni(@ApiParam(value = "Dni of the user to get") @PathVariable("dni") Long userDni);
 
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "202", description = "Created"),
+            @ApiResponse(responseCode = "200", description = "OK"),
             @ApiResponse(responseCode = "400", description = "Bad request"),
             @ApiResponse(responseCode = "404", description = "Not found"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
@@ -46,7 +46,7 @@ public interface IUserController {
     ResponseEntity<ResponseTO> activateUser(@ApiParam(value = "Dni of the user to activate") @PathVariable("dni") Long userDni);
 
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "202", description = "Created"),
+            @ApiResponse(responseCode = "200", description = "OK"),
             @ApiResponse(responseCode = "400", description = "Bad request"),
             @ApiResponse(responseCode = "404", description = "Not found"),
             @ApiResponse(responseCode = "500", description = "Internal server error")

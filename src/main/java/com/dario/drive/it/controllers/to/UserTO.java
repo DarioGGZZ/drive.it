@@ -25,6 +25,8 @@ public class UserTO {
 
     private boolean usingBike;
 
+    private Long bikeId;
+
     private double totalHours;
 
     private String status;

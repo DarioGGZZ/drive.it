@@ -28,12 +28,12 @@ public class UserController implements IUserController{
         try{
             user.setStatus(UserStatusEnum.ACTIVE.name());
             userService.saveUser(UserApiMapper.convertTOtoBO(user));
-            response = new ResponseEntity<>(ResponseTO.builder().message(HttpStatus.OK.name()).build(), HttpStatus.CREATED);
+            response = new ResponseEntity<>(ResponseTO.builder().message(HttpStatus.CREATED.name()).build(), HttpStatus.CREATED);
+            log.info("FIN DE LA CREACION DE USUARIO");
         } catch (EntityExistsException e){
             log.error("OCURRIO UN ERROR CON LA CREACION DE USUARIO: " + e);
             response = new ResponseEntity<>(ResponseTO.builder().message(e.getMessage()).build(), HttpStatus.BAD_REQUEST);
         }
-        log.info("FIN DE LA CREACION DE USUARIO");
         return response;
     }
 
@@ -44,11 +44,11 @@ public class UserController implements IUserController{
         try{
             UserTO user = UserApiMapper.convertBOtoTO(userService.getUserByDni(userDni));
             response = new ResponseEntity<>(user, HttpStatus.OK);
+            log.info("FIN DE LA OBTENCION DEL USUARIO");
         } catch (EntityNotFoundException e){
             log.error("OCURRIO UN ERROR CON LA OBTENCION DE USUARIO: " + e);
             response = new ResponseEntity<>(ResponseTO.builder().message(e.getMessage()).build(), HttpStatus.NOT_FOUND);
         }
-        log.info("FIN DE LA OBTENCION DEL USUARIO");
         return response;
     }
 

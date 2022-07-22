@@ -1,6 +1,8 @@
 package com.dario.drive.it.services;
 
+import com.dario.drive.it.models.bo.BikeBO;
 import com.dario.drive.it.models.bo.UserBO;
+import com.dario.drive.it.models.mappers.BikeMapper;
 import com.dario.drive.it.models.mappers.UserMapper;
 import com.dario.drive.it.repositories.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +24,13 @@ public class UserService {
         userBO.setStatus(true);
         userBO.setTotalHours(0.0d);
         userBO.setUsingBike(false);
+        userBO.setBikeId(null);
         repository.save(UserMapper.convertBOtoDE(userBO));
+    }
+
+    public void updateUser(UserBO updatedUser, Long id){
+        updatedUser.setId(id);
+        repository.save(UserMapper.convertBOtoDE(updatedUser));
     }
 
     public UserBO getUserByDni(Long userId) throws EntityNotFoundException{

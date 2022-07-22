@@ -19,6 +19,7 @@ public class UserApiMapper {
                 .status(userBO.isStatus() ? UserStatusEnum.ACTIVE.name() : UserStatusEnum.NOT_ACTIVE.name())
                 .totalHours(userBO.getTotalHours())
                 .usingBike(userBO.isUsingBike())
+                .bikeId(Objects.isNull(userBO.getBikeId()) ? null : userBO.getBikeId())
                 .build();
     }
 
@@ -31,6 +32,7 @@ public class UserApiMapper {
                 .status(userTO.getStatus().equals(UserStatusEnum.ACTIVE.name()))
                 .totalHours(userTO.getTotalHours())
                 .usingBike(userTO.isUsingBike())
+                .bikeId(Objects.isNull(userTO.getBikeId()) ? null : userTO.getBikeId())
                 .build();
     }
 }

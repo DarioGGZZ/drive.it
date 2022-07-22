@@ -32,6 +32,9 @@ public class UserDE {
     @Column(name = "USING_BIKE")
     private boolean usingBike;
 
+    @Column(name = "BIKE")
+    private Long bikeId;
+
     @Column(name = "TOTAL_HOURS")
     private double totalHours;
 
