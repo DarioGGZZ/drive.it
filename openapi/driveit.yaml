@@ -475,14 +475,9 @@ components:
       type: "object"
       required: 
       - "serie"
-      - "color"
       - "station"
       properties:
         serie:
-          type: string
-          pattern: "[a-zA-Z0-9- _]$"
-          maxLength: 200
-        color:
           type: string
           pattern: "[a-zA-Z0-9- _]$"
           maxLength: 200
