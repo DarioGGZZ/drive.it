@@ -34,11 +34,8 @@ public class ApiService {
         userService.updateUser(userBO, userBO.getId());
     }
 
-    public void userReturnBikeToStation(String stationName, Long userDni, double timeUsed) throws ThereAreNoSlotsAvailableException{
-        StationBO stationBO = stationService.findByName(stationName);
-        if(!stationBO.hasEmptySlot()){
-            throw new ThereAreNoSlotsAvailableException("Station with name " + stationName + " has not space");
-        }
+    public void userReturnBikeToStation(String stationName, Long userDni, double timeUsed) throws ThereAreNoSlotsAvailableException {
+        StationBO stationBO = getStation(stationName);
         UserBO userBO = userService.getUserByDni(userDni);
         BikeBO bike = bikeService.getBike(userBO.getBikeId());
         userBO.returnBike(timeUsed);
@@ -47,5 +44,21 @@ public class ApiService {
         stationService.updateStation(stationBO, stationBO.getId());
         bikeService.updateBike(bike, bike.getId());
         userService.updateUser(userBO, userBO.getId());
+    }
+
+    public void addBikeToStation(Long id, String stationName) throws ThereAreNoSlotsAvailableException {
+        StationBO stationBO = getStation(stationName);
+        BikeBO bikeBO = bikeService.getBike(id);
+        stationBO.addBike(bikeBO);
+        stationService.updateStation(stationBO, stationBO.getId());
+        bikeService.updateBike(bikeBO, bikeBO.getId());
+    }
+
+    private StationBO getStation(String stationName) throws ThereAreNoSlotsAvailableException {
+        StationBO stationBO = stationService.findByName(stationName);
+        if(!stationBO.hasEmptySlot()){
+            throw new ThereAreNoSlotsAvailableException("Station with name " + stationName + " has not space");
+        }
+        return stationBO;
     }
 }
