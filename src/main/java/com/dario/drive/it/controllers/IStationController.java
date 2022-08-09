@@ -32,7 +32,7 @@ public interface IStationController {
             @ApiResponse(responseCode = "404", description = "Not found"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
-    @Operation(summary = "Obtain station info")
+    @Operation(summary = "Obtain station info by name")
     @GetMapping(value = "/{name}", produces = APPLICATION_JSON)
     ResponseEntity<?> getStationByName(@ApiParam(value = "Name of the station to get") @PathVariable("name") String name);
 
@@ -52,7 +52,7 @@ public interface IStationController {
             @ApiResponse(responseCode = "404", description = "Not found"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
-    @Operation(summary = "Obtain station info")
+    @Operation(summary = "Obtain bike from station to user")
     @GetMapping(value = "/{name}/bike/{bike-id}/for/{user-dni}", produces = APPLICATION_JSON)
     ResponseEntity<ResponseTO> getBikeFromStationToUser(
             @ApiParam(value = "Name of the station to get") @PathVariable("name") String name,
@@ -65,10 +65,21 @@ public interface IStationController {
             @ApiResponse(responseCode = "404", description = "Not found"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
-    @Operation(summary = "Obtain station info")
+    @Operation(summary = "Return bike from user to station")
     @GetMapping(value = "/{name}/user/{user-dni}/returns/bike/after/{total-hours}", produces = APPLICATION_JSON)
     ResponseEntity<ResponseTO> returnBikeFromUserToStation(
-            @ApiParam(value = "Name of the station to get") @PathVariable("name") String name,
+            @ApiParam(value = "Name of the station") @PathVariable("name") String name,
             @ApiParam(value = "User dni") @PathVariable("user-dni") Long dni,
             @ApiParam(value = "Time used") @PathVariable("total-hours") double totalHours);
+
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Created"),
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
+    })
+    @Operation(summary = "Add bike to station")
+    @PostMapping(value = "/{bike-id}/{station-name}", produces = APPLICATION_JSON)
+    ResponseEntity<ResponseTO> addBikeToStation(
+            @ApiParam(value = "Id of the bike" ,required=true ) @PathVariable("bike-id") Long id,
+            @ApiParam(value = "Name of the station", required=true) @PathVariable("station-name") String name);
 }

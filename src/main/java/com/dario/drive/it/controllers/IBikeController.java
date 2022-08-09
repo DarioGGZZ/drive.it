@@ -22,7 +22,7 @@ public interface IBikeController {
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
     @Operation(summary = "Creates a new bike")
-    @PostMapping(consumes = APPLICATION_JSON, produces = APPLICATION_JSON)
+    @PostMapping(produces = APPLICATION_JSON)
     ResponseEntity<ResponseTO> addBike();
 
     @ApiResponses(value = {

@@ -112,4 +112,23 @@ public class StationController implements IStationController{
         }
         return response;
     }
+
+    @Override
+    public ResponseEntity<ResponseTO> addBikeToStation(Long id, String name) {
+        log.info("AGREGANDO BICI CON ID " + id + " A LA ESTACION " + name);
+        ResponseEntity<ResponseTO> response;
+        try {
+            apiService.addBikeToStation(id, name);
+            response = new ResponseEntity<>(
+                    ResponseTO.builder().message("Bicicleta con el id " + id + " agregada con exito").build(),
+                    HttpStatus.OK);
+        }  catch (ThereAreNoSlotsAvailableException e){
+            log.error("OCURRIO UN ERROR: " + e);
+            response = new ResponseEntity<>(ResponseTO.builder().message(e.getMessage()).build(), HttpStatus.BAD_REQUEST);
+        } catch (EntityNotFoundException e){
+            log.error("OCURRIO UN ERROR: " + e);
+            response = new ResponseEntity<>(ResponseTO.builder().message(e.getMessage()).build(), HttpStatus.NOT_FOUND);
+        }
+        return response;
+    }
 }
