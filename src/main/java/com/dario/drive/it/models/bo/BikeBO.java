@@ -12,7 +12,6 @@ public class BikeBO {
     private BikeAvailabilityEnum status;
     private double travelHours;
     private double usefulLife;
-    /*private StationBO station;*/
 
     public void broke(){
         this.status = BikeAvailabilityEnum.BROKEN;

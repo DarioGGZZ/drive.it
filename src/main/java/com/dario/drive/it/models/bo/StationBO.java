@@ -1,5 +1,6 @@
 package com.dario.drive.it.models.bo;
 
+import com.dario.drive.it.enums.BikeAvailabilityEnum;
 import lombok.Builder;
 import lombok.Data;
 
@@ -17,7 +18,20 @@ public class StationBO {
     private List<BikeBO> bikes;
 
     public void addBike(BikeBO bikeBO){
-        bikes.add(bikeBO);
+        if(totalSlots > 0){
+            bikes.add(bikeBO);
+            setAvailableBikes(bikeBO);
+        }
+    }
+
+    public void setAvailableBikes(){
+        availableBikes++;
+    }
+
+    public void setAvailableBikes(BikeBO bikeBO){
+        if(bikeBO.getStatus().equals(BikeAvailabilityEnum.FREE)){
+            setAvailableBikes();
+        }
     }
 
     public boolean containsBikeWithId(Long id){
